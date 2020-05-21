@@ -4,7 +4,7 @@ import com.example.projektGrupowy.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 

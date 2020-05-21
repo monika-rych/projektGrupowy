@@ -1,12 +1,10 @@
 package com.example.projektGrupowy.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
-
+// Serializable - uzywane do obiektow ktore chcemy udostepnic/przeslac (w sieci)
 @JsonAutoDetect
 public class Cart implements Serializable {
 
