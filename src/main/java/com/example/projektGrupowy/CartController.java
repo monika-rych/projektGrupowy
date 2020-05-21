@@ -1,6 +1,7 @@
 package com.example.projektGrupowy;
 
 import com.example.projektGrupowy.model.Cart;
+import com.example.projektGrupowy.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +18,21 @@ import java.util.List;
 @RequestMapping("/cart") // sciezka web
 public class CartController {
 
-    private List<Cart> cartList = new ArrayList<>();
+    CartService service;
 
     @Autowired
+    public CartController(CartService service) {
+        this.service = service;
+    }
+
+
     public CartController() {
-        cartList.add(new Cart("koszyk1", 1));
-        cartList.add(new Cart("koszyk2", 2));
-        cartList.add(new Cart("koszyk3", 3));
     }
 
     @GetMapping
     public List<Cart> getSomething(){
-        return cartList;
+        return service.getAll();
     }
-
 
     //@PathVariable - najczescie uzywane identyfikatory - UUID, int, long, String
     //stworzone do odbierania danych z serwera
@@ -39,17 +41,14 @@ public class CartController {
     //TODO zwrocic 404
     @GetMapping("/{id}")
     public Cart getById(@PathVariable int id){
-        return cartList.stream()
-                .filter(cart -> cart.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return service.getById(id);
     }
 
     // !NIEZWYKLE ISTOTNE INFORMACJE!
     // !!!post mapping i put mapping - konieczna jest adnotacja @RequestBody przy parametrze metody!!!
     @PostMapping
-    public void putThat(@RequestBody String str){
-        System.out.println("Zrobione " + str);
+    public void putThat(@RequestBody Cart cart){
+        service.addCart(cart);
     }
 
 }
