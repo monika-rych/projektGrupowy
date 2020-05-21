@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+
+//DTO - Data Transfer Object
+
 //localhost::port + " cokolwiek jest przy adnotacji" - jezeli bez requestMapping
 //localhost::port + " adnotacja przy requestMapping"+" cokolwiek jest przy adnotacji"
+@RestController
 @RequestMapping("/cart") // sciezka web
 public class CartController {
 
@@ -31,9 +34,15 @@ public class CartController {
 
     //@PathVariable - najczescie uzywane identyfikatory - UUID, int, long, String
     //stworzone do odbierania danych z serwera
+
+    // nie powinno zwracac null
+    //TODO zwrocic 404
     @GetMapping("/{id}")
-    public String getById(@PathVariable int id){
-        return "Wyslane id " + id;
+    public Cart getById(@PathVariable int id){
+        return cartList.stream()
+                .filter(cart -> cart.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     // !NIEZWYKLE ISTOTNE INFORMACJE!
