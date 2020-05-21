@@ -20,6 +20,13 @@ public class CartController {
     }
 
 
+    //@PathVariable - najczescie uzywane identyfikatory - UUID, int, long, String
+    //stworzone do odbierania danych z serwera
+    @GetMapping("/{id}")
+    public String getById(@PathVariable int id){
+        return "Wyslane id " + id;
+    }
+
 
 
     // !NIEZWYKLE ISTOTNE INFORMACJE!
