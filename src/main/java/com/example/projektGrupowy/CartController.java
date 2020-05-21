@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 //localhost::port + " cokolwiek jest przy adnotacji" - jezeli bez requestMapping
 //localhost::port + " adnotacja przy requestMapping"+" cokolwiek jest przy adnotacji"
-/*@RequestMapping("/cart") // sciezka web*/
+@RequestMapping("/cart") // sciezka web
 public class CartController {
 
     @Autowired
@@ -14,16 +14,19 @@ public class CartController {
 
     }
 
-    @GetMapping("cart/a")
+    @GetMapping
     public String getSomething(){
         return "Bla bla";
     }
 
+
+
+
     // !NIEZWYKLE ISTOTNE INFORMACJE!
     // !!!post mapping i put mapping - konieczna jest adnotacja @RequestBody przy parametrze metody!!!
-    @PostMapping("product/b")
+    @PostMapping
     public void putThat(@RequestBody String str){
-        System.out.println("Zrobione" + str);
+        System.out.println("Zrobione " + str);
     }
 
 }
