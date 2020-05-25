@@ -3,6 +3,8 @@ package com.example.projektGrupowy;
 import com.example.projektGrupowy.model.Cart;
 import com.example.projektGrupowy.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,8 +32,9 @@ public class CartController {
     }
 
     @GetMapping
-    public List<Cart> getSomething(){
-        return service.getAll();
+    public ResponseEntity<List<Cart>> getSomething(){
+
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
     //@PathVariable - najczescie uzywane identyfikatory - UUID, int, long, String
