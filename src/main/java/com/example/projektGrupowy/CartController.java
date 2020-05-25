@@ -32,7 +32,7 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cart>> getSomething(){
+    public ResponseEntity<List<Cart>> getSomething() {
 
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
@@ -43,15 +43,20 @@ public class CartController {
     // nie powinno zwracac null
     //TODO zwrocic 404
     @GetMapping("/{id}")
-    public Cart getById(@PathVariable int id){
-        return service.getById(id);
+    public ResponseEntity<Cart> getById(@PathVariable int id) {
+        Cart cart = service.getById(id);
+        if(cart != null){
+            return new ResponseEntity<>(cart,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // !NIEZWYKLE ISTOTNE INFORMACJE!
     // !!!post mapping i put mapping - konieczna jest adnotacja @RequestBody przy parametrze metody!!!
     @PostMapping
-    public void putThat(@RequestBody Cart cart){
+    public ResponseEntity putThat(@RequestBody Cart cart) {
         service.addCart(cart);
+        return new ResponseEntity(HttpStatus.OK);
     }
-
+//@PutMapping, @PatchMapping,@DeleteMapping dopisac te metody
 }
