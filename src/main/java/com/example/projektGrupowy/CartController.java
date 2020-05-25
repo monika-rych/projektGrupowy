@@ -1,5 +1,6 @@
 package com.example.projektGrupowy;
 
+import com.example.projektGrupowy.dto.CartDTO;
 import com.example.projektGrupowy.model.Cart;
 import com.example.projektGrupowy.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,8 @@ public class CartController {
     // nie powinno zwracac null
     //TODO zwrocic 404
     @GetMapping("/{id}")
-    public ResponseEntity<Cart> getById(@PathVariable int id) {
-        Cart cart = service.getById(id);
+    public ResponseEntity<CartDTO> getById(@PathVariable int id) {
+        CartDTO cart = service.getById(id);
         if(cart != null){
             return new ResponseEntity<>(cart,HttpStatus.OK);
         }
