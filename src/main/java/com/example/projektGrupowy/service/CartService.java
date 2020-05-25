@@ -31,9 +31,9 @@ public class CartService {
         Cart cart = cartRepository.getById(id);
         return cartToDTOMapper.getCartDto(cart);
     }
-
-    public void addCart(Cart cart){
-        cartRepository.addCart(cart);
+// do przejrzenia dla Lukasza
+    public void addCart(CartDTO cartDTO){
+        Cart cart = new Cart(cartDTO.name, cartDTO.id);
+         cartRepository.addCart(cart);
     }
-
 }

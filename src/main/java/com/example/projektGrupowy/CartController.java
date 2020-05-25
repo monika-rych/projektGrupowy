@@ -55,8 +55,11 @@ public class CartController {
     // !NIEZWYKLE ISTOTNE INFORMACJE!
     // !!!post mapping i put mapping - konieczna jest adnotacja @RequestBody przy parametrze metody!!!
     @PostMapping
-    public ResponseEntity putThat(@RequestBody Cart cart) {
-        service.addCart(cart);
+    public ResponseEntity putThat(@RequestBody CartDTO cartDTO) {
+        if(cartDTO.name.length()>50){
+            return new ResponseEntity("Za dluga nazwa ",HttpStatus.BAD_REQUEST);
+        }
+        service.addCart(cartDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 //@PutMapping, @PatchMapping,@DeleteMapping dopisac te metody
