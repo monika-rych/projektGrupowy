@@ -1,44 +1,39 @@
 package com.example.projektGrupowy.service;
 
 import com.example.projektGrupowy.dto.CartDTO;
+import com.example.projektGrupowy.mapper.CartToDTOMapper;
 import com.example.projektGrupowy.model.Cart;
 import com.example.projektGrupowy.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CartService {
 
     CartRepository cartRepository;
+    CartToDTOMapper cartToDTOMapper;
 
     @Autowired
-    public CartService(CartRepository cartRepository) {
+    public CartService(CartRepository cartRepository, CartToDTOMapper cartToDTOMapper) {
         this.cartRepository = cartRepository;
+        this.cartToDTOMapper = cartToDTOMapper;
     }
 
-    public List<Cart> getAll(){
-
-        return cartRepository.getAll();
+    public List<CartDTO> getAll(){
+        List<Cart> carts = cartRepository.getAll();
+        return carts.stream().map(cart -> cartToDTOMapper.getCartDto(cart)).collect(Collectors.toList());
     }
 
     public CartDTO getById(int id) {
         Cart cart = cartRepository.getById(id);
-        return getCartDto(cart);
+        return cartToDTOMapper.getCartDto(cart);
     }
 
     public void addCart(Cart cart){
         cartRepository.addCart(cart);
     }
-    private CartDTO getCartDto(Cart cart) {
-        if (cart == null) {
-            return null;
-        } else {
-            CartDTO cartDTO = new CartDTO();
-            cartDTO.id = cart.getId();
-            cartDTO.name = "Moja nazwa to: " + cart.getName();
-            return cartDTO;
-        }
-    }
+
 }

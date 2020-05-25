@@ -33,7 +33,7 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cart>> getSomething() {
+    public ResponseEntity<List<CartDTO>> getSomething() {
 
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
